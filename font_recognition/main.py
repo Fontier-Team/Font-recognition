@@ -26,7 +26,7 @@ def main():
         os.makedirs(models_path)
     
     language = 'en'
-    total_num = 200 # total number should be much greater than batch size
+    total_num = 200 # total number for image across all fonts, should be much greater than batch size
     gen_batch_size = 10
     sample_batch_size = 10
     sample_num = 5
@@ -42,6 +42,7 @@ def main():
     CNN_model_path = f'{models_path}/CNN_{language}_{num_fonts}.pth'
     font_dict_path = f'{models_path}/font_dict_{language}_{num_fonts}.json'
 
+    # Image generation
     image_generation.generate_images(
         total_num=total_num,
         language=language,
@@ -52,7 +53,6 @@ def main():
         need_save=True,
         need_return=False
     )
-
     image_generation.saved_images_sampling(
         total_num=total_num,
         img_path=generated_image_path,
@@ -65,6 +65,7 @@ def main():
         need_return=False,
     )
 
+    # train SCAE (encoder trained with upervised learning)
     SCAE_train_iter, _ = SCAE.get_SCAE_dataloader_dataset(
         batch_size=train_batch_size,
         total_num=total_num,
@@ -80,6 +81,7 @@ def main():
     # load SCAE model
     SCAE_net = torch.load(SCAE_model_path)
 
+    # train CNN (classifier trained with supervised learning)
     CNN_train_iter, CNN_train_dataset = CNN.get_CNN_dataloader_dataset(
         batch_size=train_batch_size,
         total_num=total_num,
