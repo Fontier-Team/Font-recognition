@@ -1,4 +1,5 @@
 .idea
 .DS_Store
 dataset/
+font_recognition/__pycache__/
 !dataset/README.md
