@@ -17,8 +17,16 @@ def main():
     real_image_path = os.path.join(current_dir, r'../dataset/real_images')
     models_path = os.path.join(current_dir, r'../dataset/models')
 
+    # make sure the path exists, if not, create it
+    if not os.path.exists(generated_image_path):
+        os.makedirs(generated_image_path)
+    if not os.path.exists(real_image_path):
+        os.makedirs(real_image_path)
+    if not os.path.exists(models_path):
+        os.makedirs(models_path)
+    
     language = 'en'
-    total_num = 200
+    total_num = 200 # total number should be much greater than batch size
     gen_batch_size = 10
     sample_batch_size = 10
     sample_num = 5

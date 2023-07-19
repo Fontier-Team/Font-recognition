@@ -4,8 +4,7 @@ from PIL import Image
 import numpy as np
 
 num_fonts = len(os.listdir(r'../dataset/fonts')) - 1
-# model_path = r'../dataset/models/CNN_en_{}.pth'.format(num_fonts)
-model_path = r'../dataset/models/CNN_en_2.pth'.format(num_fonts)
+model_path = r'../dataset/models/CNN_en_{}.pth'.format(num_fonts)
 # font labels are ttf file names in ../dataset/fonts, except .DS_Store
 font_labels = [font for font in os.listdir(r'../dataset/fonts') if font != '.DS_Store']
 font_recognition_model = torch.load(model_path)
