@@ -1,6 +1,6 @@
 # Folder structure
-* fonts: folder to store .ttf font file (download from Google Font)
-* generated_images: images generated for training purpose will be placed in this folder
-* models: models will be saved here
-* real_images: real world text images for encoder training
-* validation: images for validating the model performance
+* `fonts`: folder to store .ttf font file (e.g. fonts downloaded from Google Font)
+* `generated_images`: images generated for training purposes will be saved in this folder
+* `models`: `SCAE` and `CNN` models will be saved in this folder
+* `real_images`: real-world text images for training `SCAE`
+* `validation`: images for validating the model performance

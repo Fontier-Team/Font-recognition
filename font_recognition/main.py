@@ -42,27 +42,27 @@ def main():
     CNN_model_path = f'{models_path}/CNN_{language}_{num_fonts}.pth'
     font_dict_path = f'{models_path}/font_dict_{language}_{num_fonts}.json'
 
-    # image_generation.generate_images(
-    #     total_num=total_num,
-    #     language=language,
-    #     fonts_path=fonts_path,
-    #     gen_batch_size=gen_batch_size,
-    #     gen_image_path=generated_image_path,
-    #     label_df_path=generated_label_path,
-    #     need_save=True,
-    #     need_return=False
-    # )
-    # image_generation.saved_images_sampling(
-    #     total_num=total_num,
-    #     img_path=generated_image_path,
-    #     sample_path=generated_image_path,
-    #     sample_batch_size=sample_batch_size,
-    #     sample_num=sample_num,
-    #     width=sample_width,
-    #     height=sample_height,
-    #     need_save=True,
-    #     need_return=False,
-    # )
+    image_generation.generate_images(
+        total_num=total_num,
+        language=language,
+        fonts_path=fonts_path,
+        gen_batch_size=gen_batch_size,
+        gen_image_path=generated_image_path,
+        label_df_path=generated_label_path,
+        need_save=True,
+        need_return=False
+    )
+    image_generation.saved_images_sampling(
+        total_num=total_num,
+        img_path=generated_image_path,
+        sample_path=generated_image_path,
+        sample_batch_size=sample_batch_size,
+        sample_num=sample_num,
+        width=sample_width,
+        height=sample_height,
+        need_save=True,
+        need_return=False,
+    )
 
     # train SCAE (encoder trained with upervised learning)
     SCAE_train_iter, _ = SCAE.get_SCAE_dataloader_dataset(
