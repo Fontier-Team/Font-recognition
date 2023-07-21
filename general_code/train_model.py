@@ -84,6 +84,7 @@ def train(net: nn.Module,
           loss: Callable[[torch.Tensor, torch.Tensor], float],
           weight_decay: float,
           momentum: float,
+          loss_use_prob: bool = True,
           calc_accuracy: bool = False,
           device: Union[torch.device, None] = None,
           task_name: str = "Untitled task",
@@ -122,7 +123,8 @@ def train(net: nn.Module,
             optimizer.zero_grad()
             X, y = X.to(device), y.to(device)
             y_hat = net(X)
-            y = torch.argmax(y, dim=1)
+            if loss_use_prob:
+                y = torch.argmax(y, dim=1)
             l = loss(y_hat, y)
             if i % int(num_batch / 10) == 0:
                tqdm.write(f"epoch: {epoch}, iter: {i}, loss: {l.item()}")

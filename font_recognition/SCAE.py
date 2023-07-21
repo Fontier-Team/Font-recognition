@@ -88,6 +88,7 @@ def train_SCAE(
         num_epochs=num_epochs,
         lr=0.0003,
         loss=nn.MSELoss(),
+        loss_use_prob=False,
         weight_decay=0.0005,
         momentum=0.9,
         calc_accuracy=False,
