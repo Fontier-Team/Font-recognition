@@ -1,7 +1,8 @@
 .idea
 .DS_Store
 
-font_recognition/__pycache__/
+# Ignore Python bytecode
+**/__pycache__/
 
 # Ignore data
 dataset/**
