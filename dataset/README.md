@@ -3,4 +3,4 @@
 * `generated_images`: images generated for training purposes will be saved in this folder
 * `models`: `SCAE` and `CNN` models will be saved in this folder
 * `real_images`: real-world text images for training `SCAE`
-* `validation`: images for validating the model performance
+* `predict`: text images with unknown font for prediction
