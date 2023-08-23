@@ -1,13 +1,18 @@
 import os
+import sys
+ws_dir = os.path.join(os.path.dirname(__file__), "..")
+sys.path.extend([ws_dir])
+
 import torch
 from PIL import Image
 from torchvision import transforms
 from prettytable import PrettyTable
 
+
 # Define the paths
-prediction_folder_path = '../dataset/predict'
-model_path = '../dataset/models/CNN_en_5.pth'
-fonts_path = '../dataset/fonts'
+prediction_folder_path = os.path.join(ws_dir, r'dataset/predict')
+model_path = os.path.join(ws_dir, r'dataset/models/CNN_en_5.pth')
+fonts_path = os.path.join(ws_dir, r'dataset/fonts')
 
 # Load fonts, ignore .DS_Store
 fonts_ls = [font for font in os.listdir(fonts_path) if font != '.DS_Store']

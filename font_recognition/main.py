@@ -1,6 +1,7 @@
 import os
 import sys
-sys.path.extend([os.getcwd()])
+ws_dir = os.path.join(os.path.dirname(__file__), "..")
+sys.path.extend([ws_dir])
 
 import json
 import torch
@@ -13,12 +14,11 @@ import CNN
 def main():
     utils.init_seed(42)
 
-    current_dir = os.path.dirname(__file__)
-    fonts_path = os.path.join(current_dir, r'../dataset/fonts')
-    generated_image_path = os.path.join(current_dir, r'../dataset/generated_images')
-    generated_label_path = os.path.join(current_dir, r'../dataset/generated_images/labels.csv')
-    real_image_path = os.path.join(current_dir, r'../dataset/real_images')
-    models_path = os.path.join(current_dir, r'../dataset/models')
+    fonts_path = os.path.join(ws_dir, r'dataset/fonts')
+    generated_image_path = os.path.join(ws_dir, r'dataset/generated_images')
+    generated_label_path = os.path.join(ws_dir, r'dataset/generated_images/labels.csv')
+    real_image_path = os.path.join(ws_dir, r'dataset/real_images')
+    models_path = os.path.join(ws_dir, r'dataset/models')
 
     # make sure the path exists, if not, create it
     if not os.path.exists(generated_image_path):
