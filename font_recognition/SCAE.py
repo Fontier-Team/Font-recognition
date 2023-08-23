@@ -1,5 +1,6 @@
 from typing import Iterable
 
+import torch
 from torch import nn
 from torch.nn import functional as F
 
@@ -80,7 +81,8 @@ def get_SCAE_dataloader_dataset(
 def train_SCAE(
         net: SCAE,
         train_iter: Iterable,
-        num_epochs: int = 20
+        num_epochs: int = 20,
+        device: torch.device = None
 ):
     train_model.train(
         net=net,
@@ -92,5 +94,6 @@ def train_SCAE(
         weight_decay=0.0005,
         momentum=0.9,
         calc_accuracy=False,
-        task_name="SCAE"
+        task_name="SCAE",
+        device=device
     )

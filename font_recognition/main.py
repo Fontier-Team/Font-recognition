@@ -1,10 +1,13 @@
+import os
+import sys
+sys.path.extend([os.getcwd()])
+
 import json
 import torch
 from general_code import utils
 from general_code import image_generation
 import SCAE
 import CNN
-import os
 
 
 def main():
@@ -24,9 +27,9 @@ def main():
         os.makedirs(real_image_path)
     if not os.path.exists(models_path):
         os.makedirs(models_path)
-    
+
     language = 'en'
-    total_num = 200 # total number for image across all fonts, should be much greater than batch size
+    total_num = 1000  # total number for image across all fonts, should be much greater than batch size
     gen_batch_size = 10
     sample_batch_size = 10
     sample_num = 5
@@ -34,7 +37,9 @@ def main():
     sample_height = 105
 
     train_batch_size = 50
-    num_epochs = 10
+    num_epochs = 50
+
+    device_to_use = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
     fonts_ls = image_generation.get_fonts_list(fonts_path)
     num_fonts = len(fonts_ls)
@@ -74,7 +79,7 @@ def main():
         real_img_path=real_image_path
     )
     SCAE_net = SCAE.SCAE()
-    SCAE.train_SCAE(SCAE_net, SCAE_train_iter, num_epochs)
+    SCAE.train_SCAE(SCAE_net, SCAE_train_iter, num_epochs, device=device_to_use)
     torch.save(SCAE_net, SCAE_model_path)
 
     # load SCAE model
@@ -89,7 +94,7 @@ def main():
         generated_label_path=generated_label_path,
     )
     CNN_net = CNN.CNN(SCAE_net.encoder, num_fonts)
-    CNN.train_CNN(CNN_net, CNN_train_iter, num_epochs)
+    CNN.train_CNN(CNN_net, CNN_train_iter, num_epochs=num_epochs, device=device_to_use)
     torch.save(CNN_net, CNN_model_path)
 
     font_dict = CNN_train_dataset.font_dict

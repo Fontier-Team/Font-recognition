@@ -54,8 +54,8 @@ class CNN(nn.Module):
 def train_CNN(
         net: CNN,
         train_iter: Iterable,
-        type: str,
-        num_epochs: int = 20
+        num_epochs: int = 20,
+        device: torch.device = None
 ):
     train_model.train(
         net,
@@ -67,7 +67,8 @@ def train_CNN(
         momentum=0.9,
         calc_accuracy=True,
         task_name="CNN",
-        lr_decay=True
+        lr_decay=True,
+        device=device
     )
 
 

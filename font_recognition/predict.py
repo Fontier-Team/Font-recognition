@@ -2,14 +2,17 @@ import os
 import torch
 from PIL import Image
 from torchvision import transforms
+from prettytable import PrettyTable
 
 # Define the paths
 prediction_folder_path = '../dataset/predict'
-model_path = '../dataset/models/CNN_en_3.pth'
+model_path = '../dataset/models/CNN_en_5.pth'
 fonts_path = '../dataset/fonts'
 
 # Load fonts, ignore .DS_Store
 fonts_ls = [font for font in os.listdir(fonts_path) if font != '.DS_Store']
+
+print(fonts_ls)
 
 # Load the model
 model = torch.load(model_path)
@@ -22,7 +25,9 @@ transform = transforms.Compose([
 ])
 
 # Define the device
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
+tb = PrettyTable(["File Name"] + fonts_ls)
 
 # Move the model to the device
 model = model.to(device)
@@ -44,4 +49,7 @@ for image_name in os.listdir(prediction_folder_path):
     # Convert the index to a label
     predicted_label = fonts_ls[predicted_index]
 
+    tb.add_row([image_name] + list(output.detach().cpu().numpy()[0]))
     print(f'The predicted font for {image_name} is {predicted_label}.')
+
+print(tb)
