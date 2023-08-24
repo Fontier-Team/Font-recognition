@@ -10,7 +10,7 @@ from prettytable import PrettyTable
 
 
 # Define the paths
-prediction_folder_path = os.path.join(ws_dir, r'dataset/predict')
+prediction_folder_path = os.path.join(ws_dir, r'dataset/generated_images')
 model_path = os.path.join(ws_dir, r'dataset/models/CNN_en_5.pth')
 fonts_path = os.path.join(ws_dir, r'dataset/fonts')
 
@@ -20,7 +20,7 @@ fonts_ls = [font for font in os.listdir(fonts_path) if font != '.DS_Store']
 print(fonts_ls)
 
 # Load the model
-model = torch.load(model_path)
+model = torch.load(model_path, map_location=torch.device('cpu'))
 model.eval()  # Set the model to evaluation mode
 
 # Define the transformation
@@ -54,7 +54,7 @@ for image_name in os.listdir(prediction_folder_path):
     # Convert the index to a label
     predicted_label = fonts_ls[predicted_index]
 
-    tb.add_row([image_name] + list(output.detach().cpu().numpy()[0]))
+    tb.add_row([image_name] + list(output.detach().numpy()[0]))
     print(f'The predicted font for {image_name} is {predicted_label}.')
 
 print(tb)
